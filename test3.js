@@ -31,7 +31,7 @@ function f(num,x){
 }
 
 function anim(){
-    var y=parseFloat(document.getElementById("Y").innerHTML);
+    var y=parseFloat(document.getElementById("Y").value);
     var miny=parseFloat(document.getElementById("miny").value);
     var maxy=parseFloat(document.getElementById("maxy").value);
     var avy=parseFloat(document.getElementById("avy").value);
@@ -51,9 +51,9 @@ function anim(){
 function aff(){
     ctx.fillStyle="rgb(255,255,255)";
     ctx.fillRect(0,0,tex,tey);
-    var img=new Array(tex);
+    var img=new Array(tex+1);
     for(x=0;x<img.length;x++){
-        img[x]=new Array(tey);
+        img[x]=new Array(tey+1);
         for(y=0;y<img[x].length;y++){
             img[x][y]=new Array(3);
             img[x][y][0]=0;
@@ -63,22 +63,23 @@ function aff(){
     }
     var r=parseInt(document.getElementById("r").value);
     for(w=1;w<10;w++){
-        var cl=couleurs[w]
+        var cl=couleurs[w];
         var el=document.getElementById("f"+w);
         if( el.value != ""){
             for(x=-tex/2;x<tex/2;x++){
                 try{
                     val=f(w,x);
-                    for(zx=-r;zx<r;zx++){
-                        for(zy=-r;zy<r;zy++){
-                            var zz=Math.sqrt(  ((zx+xx)-xx) **2 + ((zy+yy)-yy)**2 );
-                            if(zz<0) zz=-zz;
-                            var xx=parseInt(tex/2-x);
-                            var yy=parseInt(tey/2-val);
-                            ii=img[xx+zx][yy+zy];
-                            //img[xx+zx][yy+zy]=[(ii[0]+((r-zz)/r*cl[0]))/2,(ii[1]+((r-zz)/r*cl[1]))/2,(ii[2]+((r-zz)/r*cl[2]))/2];
-                            img[xx+zx][yy+zy]=[(ii[0]+(zz/r*cl[0]))/2,(ii[1]+(zz/r*cl[1]))/2,(ii[2]+(zz/r*cl[2]))/2];
-                            //img[xx+zx][yy+zy]=[((r-zz)/r*cl[0]),((r-zz)/r*cl[1]),((r-zz)/r*cl[2])];
+                    var xx=parseInt(tex/2-x);
+                    var yy=parseInt(tey/2-val);
+                    
+                    for(zx = -r ; zx < r ; zx++){
+                        for( zy = -r ; zy < r ; zy++ ){
+                            if( xx+zx > 0 && xx+zx <= tex && yy+zy > 0 && yy+zy <= tey ){
+                                var zz=Math.sqrt(  (xx-(zx+xx))**2 + (yy-(zy+yy))**2 );
+                                var ii=img[xx+zx][yy+zy];
+                                var cll=[((r-zz)/zz*cl[0]),((r-zz)/zz*cl[1]),((r-zz)/zz*cl[2])];
+                                img[xx+zx][yy+zy]=[ Math.sqrt( ii[0]**2 + cll[0]**2 ) , Math.sqrt( ii[1]**2 + cll[1]**2 ) , Math.sqrt( ii[2]**2 + cll[2]**2 ) ];
+                            }
                         }
                     }
                 }
@@ -115,6 +116,7 @@ function aff(){
 
 
 function mainAnim(){
+    encourAnim=true;
     function boucle(){
         if( true ){
             aff();
