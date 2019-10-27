@@ -49,6 +49,11 @@ function anim(){
 }
 
 function aff(){
+    var tex=parseInt( document.getElementById("tex"));
+    var tey=parseInt( document. getElementById("tey"));
+    canvas.width=tex;
+    canvas.height=tey;
+    ctx=canvas.getContext("2d");
     ctx.fillStyle="rgb(255,255,255)";
     ctx.fillRect(0,0,tex,tey);
     var img=new Array(tex+1);
