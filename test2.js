@@ -60,7 +60,7 @@ function aff(){
     for(w=1;w<10;w++){
         if( document.getElementById("f"+w).value != ""){
             ctx.beginPath();
-            ctx.strokeStyle=couleurs[w];
+            ctx.fillStyle=couleurs[w];
             x=-tex/2
             val=f(w,x);
             ctx.moveTo(tex/2-x,tey/2-val);
@@ -73,7 +73,7 @@ function aff(){
                 
                 }
             }
-            ctx.stroke();
+            ctx.fill();
         }
     }
 }
