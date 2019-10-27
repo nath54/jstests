@@ -46,41 +46,54 @@ function anim(){
     }
     document.getElementById("avy").value=avy;
     document.getElementById("Y").value=y;
-    document.getElementById("Y").innerHTML=y;
 }
 
 function aff(){
     ctx.fillStyle="rgb(255,255,255)";
     ctx.fillRect(0,0,tex,tey);
-    var img=[]
-    var img[tex][tey][3]=0
-    var r=5
+    var img=new Array(tex);
+    for(x=0;x<img.length;x++){
+        img[x]=new Array(tey);
+        for(y=0;y<img[x].length;y++){
+            img[x][y]=new Array(3);
+            img[x][y][0]=0;
+            img[x][y][1]=0;
+            img[x][y][2]=0;
+        }
+    }
+    var r=parseInt(document.getElementById("r").value);
     for(w=1;w<10;w++){
         var cl=couleurs[w]
-        if( document.getElementById("f"+w).value != ""){
+        var el=document.getElementById("f"+w);
+        if( el.value != ""){
             for(x=-tex/2;x<tex/2;x++){
                 try{
                     val=f(w,x);
-                    for(w=-r;w<r;w++){
-                        ww=w
-                        if(ww<0) ww=-ww
-                        ii=img[parseInt(x),parseInt(val)]
-                        img[parseInt(x),parseInt(val)]=[(ii[0]+(ww/r*cl[0]))/2,(ii[1]+(ww/r*cl[1]))/2,(ii[2]+(ww/r*cl[2]))/2]
+                    for(zx=-r;zx<r;zx++){
+                        for(zy=-r;zy<r;zy++){
+                            var zz=Math.sqrt((zx)**2+(zy**2));
+                            if(zz<0) zz=-zz;
+                            var xx=parseInt(tex/2-x);
+                            var yy=parseInt(tey/2-val);
+                            ii=img[xx+zx][yy+zy];
+                            //img[xx+zx][yy+zy]=[(ii[0]+((r-zz)/r*cl[0]))/2,(ii[1]+((r-zz)/r*cl[1]))/2,(ii[2]+((r-zz)/r*cl[2]))/2];
+                            img[xx+zx][yy+zy]=[((r-zz)/r*cl[0]),((r-zz)/r*cl[1]),((r-zz)/r*cl[2])];
+                        }
                     }
                 }
                 catch(error){
-                
+                    console.log(error);
                 }
             }
         }
     }
-    for(x=0;x<tex;x++){
-        for(y=0;y<tey;y++){
+    for(x=0;x<img.length;x++){
+        for(y=0;y<img[x].length;y++){
             ctx.fillStyle="rgb("+img[x][y][0]+","+img[x][y][1]+","+img[x][y][2]+")";
             ctx.fillRect(x,y,1,1);
         }
     }
-    ctx.strokeStyle="rgb(0,0,0)";
+    ctx.strokeStyle="rgb(255,255,255)";
     ctx.beginPath();
     ctx.moveTo(0,parseInt(tey/2));
     ctx.lineTo(tex,parseInt(tey/2));
@@ -111,8 +124,14 @@ function mainAnim(){
     window.requestAnimationFrame( boucle );
 }
 
+function stopAnim(){
+    encourAnim=false;
+}
 
 
+function oneFrame(){
+    aff();
+}
 
 
 

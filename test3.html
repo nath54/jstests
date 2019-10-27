@@ -5,10 +5,13 @@
   </head>
   <body>
     <h1>Test n°1</h1>
-  	<canvas id="canvas" width="100" height="100">Votre navigateur web est tout pourri, il ne supporte meme pas les canvas</canvas>
-  	<button onClick="mainAnim();">Calcul</button>
+  	<canvas id="canvas" width="1000" height="1000">Votre navigateur web est tout pourri, il ne supporte meme pas les canvas</canvas>
+  	<button onClick="oneFrame();">Just Show One Frame</button>
+  	<button onClick="mainAnim();">Start Animation</button>
+  	<button onClick="stopAnim();">Stop</button>
   	<p style="display:none;">X=<a id="X" value="1">1</a></p>
-  	<p>Y=<a id="Y" value="1">1</a></p>
+  	<p> Y = <input id="Y" value="1"></input></p>
+  	<p>rayon de chaque point : <input id="r" value="5.0"></input></p>
   	<p>Min de Y : <input id="miny" value="-20.0"></input></p>
   	<p>Max de Y : <input id="maxy" value="20.0"></input></p>
   	<p>Pas de Y : <input id="avy" value="0.10"></input></p>
