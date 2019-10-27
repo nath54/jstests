@@ -71,13 +71,14 @@ function aff(){
                     val=f(w,x);
                     for(zx=-r;zx<r;zx++){
                         for(zy=-r;zy<r;zy++){
-                            var zz=Math.sqrt((zx)**2+(zy**2));
+                            var zz=Math.sqrt(  ((zx+xx)-xx) **2 + ((zy+yy)-yy)**2 );
                             if(zz<0) zz=-zz;
                             var xx=parseInt(tex/2-x);
                             var yy=parseInt(tey/2-val);
                             ii=img[xx+zx][yy+zy];
                             //img[xx+zx][yy+zy]=[(ii[0]+((r-zz)/r*cl[0]))/2,(ii[1]+((r-zz)/r*cl[1]))/2,(ii[2]+((r-zz)/r*cl[2]))/2];
-                            img[xx+zx][yy+zy]=[((r-zz)/r*cl[0]),((r-zz)/r*cl[1]),((r-zz)/r*cl[2])];
+                            img[xx+zx][yy+zy]=[(ii[0]+(zz/r*cl[0]))/2,(ii[1]+(zz/r*cl[1]))/2,(ii[2]+(zz/r*cl[2]))/2];
+                            //img[xx+zx][yy+zy]=[((r-zz)/r*cl[0]),((r-zz)/r*cl[1]),((r-zz)/r*cl[2])];
                         }
                     }
                 }
