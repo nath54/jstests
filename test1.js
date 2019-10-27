@@ -46,6 +46,11 @@ function anim(){
 }
 
 function aff(){
+    tex=parseInt(document.getElementById("tex").value);
+    tey=parseInt(document. getElementById("tey").value);
+    canvas.width=tex;
+    canvas.height=tey;
+    ctx=canvas.getContext("2d");
     ctx.fillStyle="rgb(255,255,255)";
     ctx.fillRect(0,0,tex,tey);
     ctx.strokeStyle="rgb(0,0,0)";
